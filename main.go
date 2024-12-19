@@ -1,17 +1,40 @@
 package main
 
+// Creating a version 2 qr code which would be 25 X 25 
+
 import (
 	// "strconv"
 	"fmt"
+	utils "glanceQR/utils" 
 )
 
-func main() {
+func main() {	
 	fmt.Println("I will do it !");
+	n := 25
+	qrMatrix := make([][]int, n)
+
+	for r:= range qrMatrix {
+		qrMatrix[r] = make([]int, n)
+	}
 
 	W := 'w';
 	byteMat := byteBlockEncoder(W);
 
 	fmt.Println(byteMat);
+	var dotBinary = '.'
+	dotByteMat := utils.ByteBlockEncoder(dotBinary)
+	fmt.Println('.')
+	fmt.Println(dotByteMat)
+
+	fmt.Println("========================================================================================")
+	fmt.Println("visulasing the qr code")
+	for r:=0; r<n; r++ {
+		for c:=0; c<n; c++ {
+			// fmt.Print("@ ")
+			fmt.Printf("%d ", qrMatrix[r][c])
+		}
+		fmt.Println();
+	}
 }
 
 func convertToBinary(num int64) string {
@@ -60,7 +83,6 @@ func byteBlockEncoder(ch rune) [4][2]int {
 	runes := []rune(binaryValue)
 
 	fmt.Println(runes);
-
 	var byteMatrix[4][2] int;
 
 	lsbPointer := len(binaryValue) - 1
@@ -86,3 +108,4 @@ func byteBlockEncoder(ch rune) [4][2]int {
 
 	return byteMatrix;
 }
+
